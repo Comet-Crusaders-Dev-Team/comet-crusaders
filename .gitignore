@@ -1,0 +1,4 @@
+/java/build/
+/java/.gradle/
+/java/gradle/
+/.idea/sonarlint/
