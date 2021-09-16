@@ -25,7 +25,9 @@ public class DiceRollerTest {
     @Test
     public void rollAbilityScoresReturnsAllValidAbilityScores() {
         List<Integer> valuesReturned = new ArrayList<>();
-        while (valuesReturned.size() < 16) {
+        int tries = 0;
+        while (valuesReturned.size() < 16 && tries < 250) {
+            tries++;
             List<Integer> abilityScoresRolled = diceRoller.rollAbilityScores();
             assertThat(abilityScoresRolled.size()).isEqualTo(6);
 
@@ -46,7 +48,9 @@ public class DiceRollerTest {
     public void roll20ReturnsAllIntegersInRange() {
         List<Integer> valuesReturned = new ArrayList<>();
 
-        while (valuesReturned.size() < 20) {
+        int tries = 0;
+        while (valuesReturned.size() < 20 && tries < 250) {
+            tries++;
             int valueRolled = diceRoller.roll20();
             assertThat(valueRolled).isBetween(1, 20);
 
