@@ -3,6 +3,7 @@ package system.gameplay;
 import crew.Captain;
 import crew.Crew;
 import system.gameplay.roleplay.DiceRoller;
+import system.graphics.AsciiGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,13 @@ public class Main {
     }
 
     private static void runIntroText() throws InterruptedException {
+        System.out.println(AsciiGraphics.TITLE_BANNER);
         System.out.println("Welcome to Comet Crusaders...");
-        Thread.sleep(1000);
         String galaxyName = "Sussudio"; // You can change the name for the galaxy if you want
         System.out.println(
                 "As a newly licensed star ship captain, you must be itching to start exploring the "
                         + galaxyName + " Galaxy!"
         );
-        Thread.sleep(1000);
         System.out.println("Before you set off, however, there are a few things we need to know about you...");
     }
 
@@ -67,9 +67,7 @@ public class Main {
             System.out.println("Pretty good, you definitely have some potential in there somewhere...");
         } else if (meanScore == 9) {
             System.out.println("I must say, you're exceptionally average.");
-            System.out.println(
-                    "You're like a ruling stick for the rest of the universe to measure themselves against..."
-            );
+            System.out.println("You're like a ruler for the rest of the universe to measure themselves against...");
         } else if (meanScore >= 7) {
             System.out.println("You're a bit below average, but I guess you've never let that stop you before...");
         } else if (meanScore >= 4) {
