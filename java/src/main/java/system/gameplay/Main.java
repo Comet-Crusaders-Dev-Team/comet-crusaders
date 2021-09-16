@@ -54,6 +54,7 @@ public class Main {
         scanner.nextLine();
 
         List<Integer> unassignedAbilityScores = diceRoller.rollAbilityScores();
+        // TODO: Implement functionality of the rollAbilityScore method
 
         int meanScore = (int) unassignedAbilityScores.stream().mapToInt(i -> i).average().orElse(0);
 
