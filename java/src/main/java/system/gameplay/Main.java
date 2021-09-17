@@ -67,7 +67,7 @@ public class Main {
         } else if (meanScore >= 14) {
             System.out.println("Very impressive! You remind me of myself back in my younger days...");
         } else if (meanScore >= 10) {
-            System.out.println("Pretty good, you definitely have some potential in there somewhere...");
+            System.out.println("Too good to be bad, but too bad to be good. You must have something to prove.");
         } else if (meanScore == 9) {
             System.out.println("I must say, you're exceptionally average.");
             System.out.println("You're like a ruler for the rest of the universe to measure themselves against...");
@@ -89,6 +89,9 @@ public class Main {
         int piloting;
         int repair;
         int charisma;
+
+        diceRoller.askAbilityScores(unassignedAbilityScores);
+
 
         return null;
         /* TODO: (A)
