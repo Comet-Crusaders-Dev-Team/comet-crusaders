@@ -65,7 +65,7 @@ public class DiceRoller {
         }
     }
 
-    public void askAbilityScores(List<Integer> list) {
+    public Integer[] askAbilityScores(List<Integer> list) {
         Scanner scanner = new Scanner(System.in);
         int i = 0;
         int end = 0;
@@ -80,15 +80,19 @@ public class DiceRoller {
         String abilityScoreName = abilityScoreNames[i];
         while (end == 0) {
             while (i < 6) {
+                abilityScoreName = abilityScoreNames[i];
                 System.out.println("");
                 System.out.println("Which score would you like to assign to your [" + abilityScoreName + "] ability?");
                 System.out.println("Enter the number corresponding to the value you wish to use...");
                 printAbilityScores(list);
                 int abilityScoreSelection = Integer.parseInt(scanner.nextLine());
+                if (abilityScoreSelection < 1 || abilityScoreSelection > list.size()) {
+                    System.out.println("Please enter a valid selection.");
+                    continue;
+                }
                 abilityScoreFlavorText(list.get(abilityScoreSelection - 1), abilityScoreName);
                 abilityScoreValues[i] = list.get(abilityScoreSelection-1);
                 list.remove(abilityScoreSelection - 1);
-                abilityScoreName = abilityScoreNames[i];
                 i++;
             }
 
@@ -99,7 +103,7 @@ public class DiceRoller {
                     end = 1;
                     break;
                 } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
-                    System.out.println("It should end if no");
+                    System.out.println("Let's try that again then. From the top.");
                     for (i = 0; i < 6; i++) {
                         list.add(abilityScoreValues[i]);
                         sortIntsHighToLow(list);
@@ -109,9 +113,8 @@ public class DiceRoller {
                 else {
                     System.out.println("Please answer with (yes/no).");
                 }
-
-
         }
+        return abilityScoreValues;
     }
 
     public void abilityScoreFlavorText (int abilityScoreValue, String abilityScoreName) {

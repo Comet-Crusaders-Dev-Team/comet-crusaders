@@ -83,23 +83,25 @@ public class Main {
 
         // TODO: (A) Have player assign their ability scores
 
-        int physical;
-        int agility;
-        int blaster;
-        int piloting;
-        int repair;
-        int charisma;
+        Integer[] abilityScoreValues = diceRoller.askAbilityScores(unassignedAbilityScores);
 
-        diceRoller.askAbilityScores(unassignedAbilityScores);
+        int physical = abilityScoreValues[0];
+        int agility = abilityScoreValues[1];
+        int blaster = abilityScoreValues[2];
+        int piloting = abilityScoreValues[3];
+        int repair = abilityScoreValues[4];
+        int charisma = abilityScoreValues[5];
 
 
-        return null;
+
+
+        //return null;
         /* TODO: (A)
         The above line is here so you can run the dice tests, otherwise the compiler would complain about using values
         that haven't been set. Delete the line above and uncomment the line below when you get the dice tests passing
         and you're ready to start adding the functionality for the player to set their ability scores using the values
         that they rolled.
         */
-        // return new Captain(name, physical, agility, blaster, piloting, repair, charisma);
+         return new Captain(name, physical, agility, blaster, piloting, repair, charisma);
     }
 }
