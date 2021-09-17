@@ -69,6 +69,7 @@ public class DiceRoller {
     public void askAbilityScores(List<Integer> list) {
         Scanner scanner = new Scanner(System.in);
         int i = 0;
+        int end = 0;
         Integer[] abilityScoreValues = new Integer[6];
         String[] abilityScoreNames = new String[6];
         abilityScoreNames[0] = ("Physical");
@@ -78,7 +79,7 @@ public class DiceRoller {
         abilityScoreNames[4] = ("Repair");
         abilityScoreNames[5] = ("Charisma");
         String abilityScoreName = abilityScoreNames[i];
-        while (true) {
+        while (end == 0) {
             while (i < 6) {
                 System.out.println("");
                 System.out.println("Which score would you like to assign to your [" + abilityScoreName + "] ability?");
@@ -92,17 +93,7 @@ public class DiceRoller {
                 i++;
             }
 
-            while(true) {
-                printAbilityScoresWithNames(abilityScoreNames, abilityScoreValues);
-                System.out.println("Are these the ability scores you wish to use? (yes/no)");
-                String answer = scanner.nextLine();
-                if (answer.equals("yes") || answer.equals("y")) {
-                    break;
-                } else {
-                    System.out.println("Please answer with (yes/no).");
-                }
-            }
-            break;
+
 
         }
     }
@@ -200,6 +191,28 @@ public class DiceRoller {
     public void printAbilityScoresWithNames (String[] Names, Integer[] Values) {
         for (int i = 0; i < Values.length; i++) {
             System.out.println("[" + Names[i] + "]: " + Values[i]);
+        }
+    }
+
+    public void abilityScoreConfirmationLoop (String[] Names, Integer[] Values) {
+        while(true) {
+            printAbilityScoresWithNames(Names, Values);
+            System.out.println("Are these the ability scores you wish to use? (yes/no)");
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+                end = 1;
+                break;
+            } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
+                System.out.println("It should end if no");
+                for (i = 0; i < 6; i++) {
+                    list.add(abilityScoreValues[i]);
+                }
+                break;
+            }
+            else {
+                System.out.println("Please answer with (yes/no).");
+            }
+            System.out.println("Inside while true");
         }
     }
 }
