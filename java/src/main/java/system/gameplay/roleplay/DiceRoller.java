@@ -23,6 +23,7 @@ public class DiceRoller {
                 topThreeSixSidedDie = topThreeSixSidedDie();
         }
 
+        sortIntsHighToLow(rollAbilityScoresList);
         return rollAbilityScoresList;
     }
 
@@ -65,9 +66,10 @@ public class DiceRoller {
         }
     }
 
-    public void askAbilityScores(List<Integer> list) {
+    public List<Integer> askAbilityScores(List<Integer> list) {
         Scanner scanner = new Scanner(System.in);
         int i = 0;
+        Integer[] abilityScoreValues = new Integer[6];
         String[] abilityScoreNames = new String[6];
         abilityScoreNames[0] = ("Physical");
         abilityScoreNames[1] = ("Agility");
@@ -76,16 +78,21 @@ public class DiceRoller {
         abilityScoreNames[4] = ("Repair");
         abilityScoreNames[5] = ("Charisma");
         String abilityScoreName = abilityScoreNames[i];
-        while (i < 6) {
-            System.out.println("");
-            System.out.println("Which score would you like to assign to your [" + abilityScoreName + "] ability?");
-            System.out.println("Enter the number corresponding to the value you wish to use...");
-            printAbilityScores(list);
-            int abilityScoreSelection = Integer.parseInt(scanner.nextLine());
-            abilityScoreFlavorText(list.get(abilityScoreSelection-1), abilityScoreName);
-            list.remove(abilityScoreSelection-1);
-            i++;
-            abilityScoreName = abilityScoreNames[i];
+        while (true) {
+            while (i < 6) {
+                System.out.println("");
+                System.out.println("Which score would you like to assign to your [" + abilityScoreName + "] ability?");
+                System.out.println("Enter the number corresponding to the value you wish to use...");
+                printAbilityScores(list);
+                int abilityScoreSelection = Integer.parseInt(scanner.nextLine());
+                abilityScoreFlavorText(list.get(abilityScoreSelection - 1), abilityScoreName);
+                abilityScoreValues[i] = list.get(abilityScoreSelection-1);
+                list.remove(abilityScoreSelection - 1);
+                i++;
+                abilityScoreName = abilityScoreNames[i];
+            }
+
+            System.out.println("Are these the ability scores you wish to use? (yes/no)");
         }
     }
     
@@ -175,6 +182,12 @@ public class DiceRoller {
             } else if (abilityScoreValue >= 3) {
                 System.out.println("Was that an attempt?...");
             }
+        }
+    }
+
+    public void printAbilityScoresWithNames (String[] Names, Integer[] Values) {
+        for (int i = 0; i < Values.length; i++) {
+            System.out.println("[" + Names[i] + " " + "]: " + Values[i]);
         }
     }
 }
