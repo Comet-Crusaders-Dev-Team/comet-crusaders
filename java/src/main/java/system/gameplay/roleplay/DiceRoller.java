@@ -66,7 +66,7 @@ public class DiceRoller {
         }
     }
 
-    public List<Integer> askAbilityScores(List<Integer> list) {
+    public void askAbilityScores(List<Integer> list) {
         Scanner scanner = new Scanner(System.in);
         int i = 0;
         Integer[] abilityScoreValues = new Integer[6];
@@ -88,11 +88,22 @@ public class DiceRoller {
                 abilityScoreFlavorText(list.get(abilityScoreSelection - 1), abilityScoreName);
                 abilityScoreValues[i] = list.get(abilityScoreSelection-1);
                 list.remove(abilityScoreSelection - 1);
-                i++;
                 abilityScoreName = abilityScoreNames[i];
+                i++;
             }
 
-            System.out.println("Are these the ability scores you wish to use? (yes/no)");
+            while(true) {
+                printAbilityScoresWithNames(abilityScoreNames, abilityScoreValues);
+                System.out.println("Are these the ability scores you wish to use? (yes/no)");
+                String answer = scanner.nextLine();
+                if (answer.equals("yes") || answer.equals("y")) {
+                    break;
+                } else {
+                    System.out.println("Please answer with (yes/no).");
+                }
+            }
+            break;
+
         }
     }
     
@@ -183,11 +194,12 @@ public class DiceRoller {
                 System.out.println("Was that an attempt?...");
             }
         }
+        System.out.println();
     }
 
     public void printAbilityScoresWithNames (String[] Names, Integer[] Values) {
         for (int i = 0; i < Values.length; i++) {
-            System.out.println("[" + Names[i] + " " + "]: " + Values[i]);
+            System.out.println("[" + Names[i] + "]: " + Values[i]);
         }
     }
 }
