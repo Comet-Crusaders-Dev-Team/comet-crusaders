@@ -102,29 +102,33 @@ public class DiceRoller {
         System.out.println();
         if (abilityScoreName.equals("Physical")) {
             if (abilityScoreValue == 18) {
+                // TODO: change bears to alien species once world is more fleshed out
                 System.out.println("Holy smokes! You must wrestle with bears for fun!");
             } else if (abilityScoreValue >= 14) {
                 System.out.println("With numbers like that, I might be willing to train with you sometime.");
             } else if (abilityScoreValue >= 10) {
-                System.out.println("You look like you may have seen the inside of a metagalactic economy training gym or two.");
+                System.out.println(
+                        "You look like you may have seen the inside of a metagalactic economy training gym or two."
+                );
             } else if (abilityScoreValue == 9) {
                 System.out.println("Perfectly average physical capabilities.");
             } else if (abilityScoreValue >= 7) {
                 System.out.println("Hit some mass-affected apparatuses, nerd.");
             } else if (abilityScoreValue >= 3) {
-                System.out.println("Have you ever been outside? Good luck...");
+                System.out.println("Have you ever even been outside? Good luck...");
             }
         } else if (abilityScoreName.equals("Agility")) {
             if (abilityScoreValue == 18) {
+                // TODO: change cobra to alien species once world is more fleshed out
                 System.out.println("Whoa there! You must go bobbing for cobras instead of apples!");
             } else if (abilityScoreValue >= 14) {
                 System.out.println("You've got some slick moves there!");
             } else if (abilityScoreValue >= 10) {
                 System.out.println("You look like a bit of a dancer.");
             } else if (abilityScoreValue == 9) {
-                System.out.println("Perfectly averagely agile. Hmph.");
+                System.out.println("Perfectly average agility-wise. Hmph.");
             } else if (abilityScoreValue >= 7) {
-                System.out.println("You look sluggish...Are you okay?");
+                System.out.println("You look sluggish... Are you okay?");
             } else if (abilityScoreValue >= 3) {
                 System.out.println("Watching you move is like hoping a brick will run...");
             }
@@ -136,7 +140,7 @@ public class DiceRoller {
             } else if (abilityScoreValue >= 10) {
                 System.out.println("You must hit the holo-range often.");
             } else if (abilityScoreValue == 9) {
-                System.out.println("As average a blaster could get.");
+                System.out.println("As average with a blaster as can be.");
             } else if (abilityScoreValue >= 7) {
                 System.out.println("Keep your finger OUTSIDE of the holo-finger guard...");
             } else if (abilityScoreValue >= 3) {
@@ -160,7 +164,7 @@ public class DiceRoller {
             if (abilityScoreValue == 18) {
                 System.out.println("Golly! You could fix things before they even break!");
             } else if (abilityScoreValue >= 14) {
-                System.out.println("Not bad...Now listen, I've got this sound coming from my kinetic barriers..");
+                System.out.println("Impressive... Now listen, I've got this sound coming from my kinetic barriers..");
             } else if (abilityScoreValue >= 10) {
                 System.out.println("Spent a summer working in the engineering bay of a Cruiser, eh?");
             } else if (abilityScoreValue == 9) {
@@ -176,13 +180,15 @@ public class DiceRoller {
             } else if (abilityScoreValue >= 14) {
                 System.out.println("You must have no trouble getting into those selective Nebular clubs.");
             } else if (abilityScoreValue >= 10) {
-                System.out.println("Had more than a few ladies hoping you'd take 'em for a night-time cruise, I see.");
+                System.out.println("Had more than a few ladies hoping you'd take 'em for a night-time cruise, eh?");
             } else if (abilityScoreValue == 9) {
                 System.out.println("Average, but it's better than some can say.");
             } else if (abilityScoreValue >= 7) {
                 System.out.println("You're not convincing anyone.");
             } else if (abilityScoreValue >= 3) {
-                System.out.println("Was that an attempt?...");
+                System.out.println(
+                        "I probably wouldn't even notice you exist, if I weren't being payed to talk to you..."
+                );
             }
         }
         System.out.println();
