@@ -54,9 +54,8 @@ public class DiceRoller {
         return random.nextInt(20) + 1;
     }
 
-    private List<Integer> sortIntsHighToLow(List<Integer> list) {
-        Collections.reverse(list);
-        return list;
+    private void sortIntsHighToLow(List<Integer> list) {
+        list.sort(Collections.reverseOrder());
     }
 
     // Let me know if this should be placed in a different location
