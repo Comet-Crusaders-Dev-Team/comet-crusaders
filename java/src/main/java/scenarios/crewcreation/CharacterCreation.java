@@ -7,7 +7,7 @@ import system.gameplay.roleplay.DiceRoller;
 import java.util.List;
 import java.util.Scanner;
 
-public class CharacterCreation {
+public final class CharacterCreation {
 
     private static final Scanner scanner = SystemInputScannerSingleton.getInstance();
 
