@@ -15,20 +15,13 @@ import java.util.List;
  */
 public class DiceRollerTest {
 
-    private DiceRoller diceRoller;
-
-    @Before
-    public void setUp() {
-        diceRoller = new DiceRoller();
-    }
-
     @Test
     public void rollAbilityScoresReturnsAllValidAbilityScores() {
         List<Integer> valuesReturned = new ArrayList<>();
         int tries = 0;
         while (valuesReturned.size() < 16 || tries < 250) {
             tries++;
-            List<Integer> abilityScoresRolled = diceRoller.rollAbilityScores();
+            List<Integer> abilityScoresRolled = DiceRoller.rollAbilityScores();
             assertThat(abilityScoresRolled.size()).isEqualTo(6);
 
             for (Integer valueRolled : abilityScoresRolled) {
@@ -51,7 +44,7 @@ public class DiceRollerTest {
         int tries = 0;
         while (valuesReturned.size() < 20 || tries < 250) {
             tries++;
-            int valueRolled = diceRoller.roll20();
+            int valueRolled = DiceRoller.roll20();
             assertThat(valueRolled).isBetween(1, 20);
 
             if (!valuesReturned.contains(valueRolled)) {
