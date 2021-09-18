@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         AudioPlayer.loop("/audio/space-wave-bgm.wav");
         runIntroText();
         Crew crew = runCrewCreation();
