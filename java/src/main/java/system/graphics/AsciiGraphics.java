@@ -1,6 +1,6 @@
 package system.graphics;
 
-public class AsciiGraphics {
+public final class AsciiGraphics {
 
     public static final String TITLE_BANNER = "                                  _                                         \n" +
             "                                /' `\\                                     /'\n" +
