@@ -2,7 +2,7 @@ package system.gameplay;
 
 import crew.Captain;
 import crew.Crew;
-import system.audio.AudioHelper;
+import system.audio.AudioPlayer;
 import system.gameplay.roleplay.DiceRoller;
 import system.graphics.AsciiGraphics;
 
@@ -16,7 +16,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         DiceRoller diceRoller =  new DiceRoller();
 
-        AudioHelper.loop("/audio/space-wave-bgm.wav");
+        AudioPlayer.loop("/audio/space-wave-bgm.wav");
         runIntroText();
         Crew crew = runCrewCreation(scanner, diceRoller);
     }
