@@ -102,11 +102,20 @@ public final class CharacterCreation {
                 System.out.println("Which score would you like to assign to your [" + abilityScoreName + "] ability?");
                 System.out.println("Enter the number corresponding to the value you wish to use...");
                 printAbilityScores(list);
-                int abilityScoreSelection = Integer.parseInt(scanner.nextLine());
-                if (abilityScoreSelection < 1 || abilityScoreSelection > list.size()) {
-                    System.out.println("Please enter a valid selection.");
-                    continue;
+                Integer abilityScoreSelection = null;
+                while (abilityScoreSelection == null) {
+                    try {
+                        abilityScoreSelection = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println("Please enter a number from 1 to " + list.size() + ".");
+                    }
+                    if (abilityScoreSelection < 1 || abilityScoreSelection > list.size()) {
+                        System.out.println("Please enter a valid selection.");
+                        abilityScoreSelection = null;
+                    }
                 }
+
+
                 abilityScoreFlavorText(list.get(abilityScoreSelection - 1), abilityScoreName);
                 abilityScoreValues[i] = list.get(abilityScoreSelection-1);
                 list.remove(abilityScoreSelection - 1);
