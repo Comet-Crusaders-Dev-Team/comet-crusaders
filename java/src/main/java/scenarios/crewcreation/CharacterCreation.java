@@ -1,15 +1,23 @@
 package scenarios.crewcreation;
 
 import crew.Captain;
-import system.gameplay.engine.SystemInputScannerSingleton;
+import system.gameplay.engine.io.DataPrinter;
+import system.gameplay.engine.io.SystemInputScannerSingleton;
 import system.gameplay.roleplay.DiceRoller;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public final class CharacterCreation {
 
     private static final Scanner scanner = SystemInputScannerSingleton.getInstance();
+
+    // TODO: Move these constants to an enum
+    private static final String PHYSICAL = "Physical";
+    private static final String AGILITY = "Agility";
+    private static final String BLASTER = "Blaster";
+    private static final String PILOTING = "Piloting";
+    private static final String REPAIR = "Repair";
+    private static final String CHARISMA = "Charisma";
 
     public static Captain runCharacterCreation() {
         System.out.println("First things first, what is your name...?");
@@ -56,15 +64,7 @@ public final class CharacterCreation {
 
         // TODO: (A) Have player assign their ability scores
 
-        Integer[] abilityScoreValues = askAbilityScores(unassignedAbilityScores);
-
-        int physical = abilityScoreValues[0];
-        int agility = abilityScoreValues[1];
-        int blaster = abilityScoreValues[2];
-        int piloting = abilityScoreValues[3];
-        int repair = abilityScoreValues[4];
-        int charisma = abilityScoreValues[5];
-
+        Map<String, Integer> assignedAbilityScores = assignAbilityScores(unassignedAbilityScores);
 
         //return null;
         /* TODO: (A)
@@ -73,47 +73,50 @@ public final class CharacterCreation {
         and you're ready to start adding the functionality for the player to set their ability scores using the values
         that they rolled.
         */
-        return new Captain(name, physical, agility, blaster, piloting, repair, charisma);
+        return new Captain(
+                name,
+                assignedAbilityScores.get(PHYSICAL),
+                assignedAbilityScores.get(AGILITY),
+                assignedAbilityScores.get(BLASTER),
+                assignedAbilityScores.get(PILOTING),
+                assignedAbilityScores.get(REPAIR),
+                assignedAbilityScores.get(CHARISMA)
+        );
     }
 
-    public static void printAbilityScores(List<Integer> list) {
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println("[" + (i + 1) + "]" + " " + list.get(i));
-        }
-    }
-
-    public static Integer[] askAbilityScores(List<Integer> list) {
-        Scanner scanner = new Scanner(System.in);
-        int i = 0;
+    private static Map<String, Integer> assignAbilityScores(List<Integer> scoresRolled) {
         int end = 0;
-        Integer[] abilityScoreValues = new Integer[6];
-        String[] abilityScoreNames = new String[6];
-        abilityScoreNames[0] = ("Physical");
-        abilityScoreNames[1] = ("Agility");
-        abilityScoreNames[2] = ("Blaster");
-        abilityScoreNames[3] = ("Piloting");
-        abilityScoreNames[4] = ("Repair");
-        abilityScoreNames[5] = ("Charisma");
-        String abilityScoreName = abilityScoreNames[i];
+        Map<String, Integer> abilityScoreMap = new LinkedHashMap<>();
+
         while (end == 0) {
-            while (i < 6) {
-                abilityScoreName = abilityScoreNames[i];
+            abilityScoreMap.put(PHYSICAL, null);
+            abilityScoreMap.put(AGILITY, null);
+            abilityScoreMap.put(BLASTER, null);
+            abilityScoreMap.put(PILOTING, null);
+            abilityScoreMap.put(REPAIR, null);
+            abilityScoreMap.put(CHARISMA, null);
+
+            List<Integer> availableScores = new ArrayList<>(scoresRolled);
+            for (Map.Entry<String, Integer> entry : abilityScoreMap.entrySet()) {
+                String abilityName = entry.getKey();
                 System.out.println("");
-                System.out.println("Which score would you like to assign to your [" + abilityScoreName + "] ability?");
+                System.out.println("Which score would you like to assign to your [" + abilityName + "] ability?");
                 System.out.println("Enter the number corresponding to the value you wish to use...");
-                printAbilityScores(list);
+
+                DataPrinter.printAsOrderedList(availableScores);
+
                 int abilityScoreSelection = Integer.parseInt(scanner.nextLine());
-                if (abilityScoreSelection < 1 || abilityScoreSelection > list.size()) {
+                if (abilityScoreSelection < 1 || abilityScoreSelection > availableScores.size()) {
                     System.out.println("Please enter a valid selection.");
                     continue;
                 }
-                abilityScoreFlavorText(list.get(abilityScoreSelection - 1), abilityScoreName);
-                abilityScoreValues[i] = list.get(abilityScoreSelection-1);
-                list.remove(abilityScoreSelection - 1);
-                i++;
+
+                abilityScoreFlavorText(availableScores.get(abilityScoreSelection - 1), abilityName);
+                entry.setValue(availableScores.get(abilityScoreSelection - 1));
+                availableScores.remove(abilityScoreSelection - 1);
             }
 
-            printAbilityScoresWithNames(abilityScoreNames, abilityScoreValues);
+            printAbilityScoresWithNames(abilityScoreMap);
             System.out.println("Are these the ability scores you wish to use? (yes/no)");
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
@@ -121,28 +124,16 @@ public final class CharacterCreation {
                 break;
             } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
                 System.out.println("Let's try that again then. From the top.");
-                for (i = 0; i < 6; i++) {
-                    list.add(abilityScoreValues[i]);
-                    /*
-                    The following line will cause your code to break right now, because sortIntsHighToLow is a
-                    private method in DiceRoller it can no longer be accessed by this method, since we moved it out of
-                    the class. You won't need this line to have the list sorted properly when restarting score
-                    assignment after you implement the review feedback.
-                     */
-                    // DiceRoller.sortIntsHighToLow(list);
-                }
-                i = 0;
-            }
-            else {
+            } else {
                 System.out.println("Please answer with (yes/no).");
             }
         }
-        return abilityScoreValues;
+        return abilityScoreMap;
     }
 
     public static void abilityScoreFlavorText(int abilityScoreValue, String abilityScoreName) {
         System.out.println();
-        if (abilityScoreName.equals("Physical")) {
+        if (abilityScoreName.equals(PHYSICAL)) {
             if (abilityScoreValue == 18) {
                 // TODO: change bears to alien species once world is more fleshed out
                 System.out.println("Holy smokes! You must wrestle with bears for fun!");
@@ -159,7 +150,7 @@ public final class CharacterCreation {
             } else if (abilityScoreValue >= 3) {
                 System.out.println("Have you ever even been outside? Good luck...");
             }
-        } else if (abilityScoreName.equals("Agility")) {
+        } else if (abilityScoreName.equals(AGILITY)) {
             if (abilityScoreValue == 18) {
                 // TODO: change cobra to alien species once world is more fleshed out
                 System.out.println("Whoa there! You must go bobbing for cobras instead of apples!");
@@ -174,7 +165,7 @@ public final class CharacterCreation {
             } else if (abilityScoreValue >= 3) {
                 System.out.println("Watching you move is like hoping a brick will run...");
             }
-        } else if (abilityScoreName.equals("Blaster")) {
+        } else if (abilityScoreName.equals(BLASTER)) {
             if (abilityScoreValue == 18) {
                 System.out.println("Yee haw! You could shoot my eyebrow off with those moves!");
             } else if (abilityScoreValue >= 14) {
@@ -188,7 +179,7 @@ public final class CharacterCreation {
             } else if (abilityScoreValue >= 3) {
                 System.out.println("I think you're gonna need a lot more than adult supervision around a blaster, son.");
             }
-        } else if (abilityScoreName.equals("Piloting")) {
+        } else if (abilityScoreName.equals(PILOTING)) {
             if (abilityScoreValue == 18) {
                 System.out.println("Wowee! You could fit a strike ship through a garbage chute!");
             } else if (abilityScoreValue >= 14) {
@@ -202,7 +193,7 @@ public final class CharacterCreation {
             } else if (abilityScoreValue >= 3) {
                 System.out.println("You had your hyperdrive license suspended for how long?!");
             }
-        } else if (abilityScoreName.equals("Repair")) {
+        } else if (abilityScoreName.equals(REPAIR)) {
             if (abilityScoreValue == 18) {
                 System.out.println("Golly! You could fix things before they even break!");
             } else if (abilityScoreValue >= 14) {
@@ -216,7 +207,7 @@ public final class CharacterCreation {
             } else if (abilityScoreValue >= 3) {
                 System.out.println("Give that wrench back right now.");
             }
-        } else if (abilityScoreName.equals("Charisma")) {
+        } else if (abilityScoreName.equals(CHARISMA)) {
             if (abilityScoreValue == 18) {
                 System.out.println("Wowzers! You could charm the pants off of me!");
             } else if (abilityScoreValue >= 14) {
@@ -236,9 +227,9 @@ public final class CharacterCreation {
         System.out.println();
     }
 
-    public static void printAbilityScoresWithNames(String[] Names, Integer[] Values) {
-        for (int i = 0; i < Values.length; i++) {
-            System.out.println("[" + Names[i] + "]: " + Values[i]);
+    public static void printAbilityScoresWithNames(Map<String, Integer> scores) {
+        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
+            System.out.println("[" + entry.getKey() + "]: " + entry.getValue());
         }
     }
 

@@ -1,4 +1,4 @@
-package system.gameplay.engine;
+package system.gameplay.engine.io;
 
 import java.util.Scanner;
 
