@@ -30,12 +30,9 @@ public final class CharacterCreation {
         // TODO: Add a bit of flavor text describing each ability score, move into seperate describeAbilityScores method
         System.out.println("Anywho, Ability Scores are what really show what someone's made of!");
 
-        System.out.println("Well then, what might your ability scores be?");
-        System.out.println("Press any key to roll the dice and determine your potential attributes...");
-        scanner.nextLine();
+
 
         List<Integer> unassignedAbilityScores = DiceRoller.rollAbilityScores();
-        // TODO: Implement functionality of the rollAbilityScore method
 
         int meanScore = (int) unassignedAbilityScores.stream().mapToInt(i -> i).average().orElse(0);
 
@@ -62,17 +59,9 @@ public final class CharacterCreation {
             System.out.println("I probably would, if I were you...");
         }
 
-        // TODO: (A) Have player assign their ability scores
 
         Map<String, Integer> assignedAbilityScores = assignAbilityScores(unassignedAbilityScores);
 
-        //return null;
-        /* TODO: (A)
-        The above line is here so you can run the dice tests, otherwise the compiler would complain about using values
-        that haven't been set. Delete the line above and uncomment the line below when you get the dice tests passing
-        and you're ready to start adding the functionality for the player to set their ability scores using the values
-        that they rolled.
-        */
         return new Captain(
                 name,
                 assignedAbilityScores.get(PHYSICAL),
@@ -85,10 +74,12 @@ public final class CharacterCreation {
     }
 
     private static Map<String, Integer> assignAbilityScores(List<Integer> scoresRolled) {
-        int end = 0;
         Map<String, Integer> abilityScoreMap = new LinkedHashMap<>();
 
-        while (end == 0) {
+        System.out.println("Well then, what might your ability scores be?");
+        System.out.println("Press any key to roll the dice and determine your potential attributes...");
+        scanner.nextLine();
+        while (true) {
             abilityScoreMap.put(PHYSICAL, null);
             abilityScoreMap.put(AGILITY, null);
             abilityScoreMap.put(BLASTER, null);
@@ -123,7 +114,7 @@ public final class CharacterCreation {
                     }
                 }
 
-                abilityScoreFlavorText(availableScores.get(selectedScore - 1), abilityName);
+                printAbilityScoreFlavorText(availableScores.get(selectedScore - 1), abilityName);
                 ability.setValue(availableScores.get(selectedScore - 1));
                 availableScores.remove(selectedScore - 1);
             }
@@ -132,7 +123,6 @@ public final class CharacterCreation {
             System.out.println("Are these the ability scores you wish to use? (yes/no)");
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
-                end = 1;
                 break;
             } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
                 System.out.println("Let's try that again then. From the top.");
@@ -143,7 +133,7 @@ public final class CharacterCreation {
         return abilityScoreMap;
     }
 
-    public static void abilityScoreFlavorText(int abilityScoreValue, String abilityScoreName) {
+    public static void printAbilityScoreFlavorText(int abilityScoreValue, String abilityScoreName) {
         System.out.println();
         if (abilityScoreName.equals(PHYSICAL)) {
             if (abilityScoreValue == 18) {
