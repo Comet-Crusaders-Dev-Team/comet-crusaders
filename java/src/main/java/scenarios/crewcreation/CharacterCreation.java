@@ -27,8 +27,8 @@ public final class CharacterCreation {
                 name + ", eh? Not the name I was expecting for a star ship captain, if I'm being honest with you..."
         );
 
+        // TODO: Add a bit of flavor text describing each ability score, move into seperate describeAbilityScores method
         System.out.println("Anywho, Ability Scores are what really show what someone's made of!");
-        // TODO: Add a bit of flavor text describing each ability score
 
         System.out.println("Well then, what might your ability scores be?");
         System.out.println("Press any key to roll the dice and determine your potential attributes...");
@@ -97,23 +97,35 @@ public final class CharacterCreation {
             abilityScoreMap.put(CHARISMA, null);
 
             List<Integer> availableScores = new ArrayList<>(scoresRolled);
-            for (Map.Entry<String, Integer> entry : abilityScoreMap.entrySet()) {
-                String abilityName = entry.getKey();
+            for (Map.Entry<String, Integer> ability : abilityScoreMap.entrySet()) {
+                String abilityName = ability.getKey();
                 System.out.println("");
                 System.out.println("Which score would you like to assign to your [" + abilityName + "] ability?");
                 System.out.println("Enter the number corresponding to the value you wish to use...");
 
+                // TODO: Depending on how Lanterna is set up, we should potentially extract the following code into a
+                //  utility method for players to select a choice from an ordered list
                 DataPrinter.printAsOrderedList(availableScores);
 
-                int abilityScoreSelection = Integer.parseInt(scanner.nextLine());
-                if (abilityScoreSelection < 1 || abilityScoreSelection > availableScores.size()) {
-                    System.out.println("Please enter a valid selection.");
-                    continue;
+                Integer selectedScore = null;
+                while (selectedScore == null) {
+                    String invalidInputMessage = "Please enter a number from 1 to " + availableScores.size() + ".";
+
+                    try {
+                        selectedScore = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        System.out.println(invalidInputMessage);
+                        continue;
+                    }
+                    if (selectedScore < 1 || selectedScore > availableScores.size()) {
+                        System.out.println(invalidInputMessage);
+                        selectedScore = null;
+                    }
                 }
 
-                abilityScoreFlavorText(availableScores.get(abilityScoreSelection - 1), abilityName);
-                entry.setValue(availableScores.get(abilityScoreSelection - 1));
-                availableScores.remove(abilityScoreSelection - 1);
+                abilityScoreFlavorText(availableScores.get(selectedScore - 1), abilityName);
+                ability.setValue(availableScores.get(selectedScore - 1));
+                availableScores.remove(selectedScore - 1);
             }
 
             printAbilityScoresWithNames(abilityScoreMap);
