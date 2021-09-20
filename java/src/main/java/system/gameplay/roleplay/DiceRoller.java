@@ -10,12 +10,11 @@ public final class DiceRoller {
     private static final Random random = new Random();
 
     public static List<Integer> rollAbilityScores() {
-        //TODO: (A) This line is here so the compiler won't complain, remove it when you add the functionality for this method
         ArrayList<Integer> rollAbilityScoresList = new ArrayList<>();
-        int topThreeSixSidedDie = topThreeSixSidedDie();
-        for (int i = 1; i <= 6; i++) {
-                rollAbilityScoresList.add(topThreeSixSidedDie);
-                topThreeSixSidedDie = topThreeSixSidedDie();
+
+        for (int i = 0; i < 6; i++) {
+            int topThreeSixSidedDie = topThreeSixSidedDie();
+            rollAbilityScoresList.add(topThreeSixSidedDie);
         }
 
         // Sort scores to make it easier for player to keep track of how they're prioritizing their abilities
@@ -49,6 +48,7 @@ public final class DiceRoller {
         return diceRollValuesSum;
     }
 
+    // TODO: Maybe move this method out into a separate utility class that will deal with common list functionality
     private static void sortIntsHighToLow(List<Integer> list) {
         list.sort(Collections.reverseOrder());
     }
