@@ -13,7 +13,7 @@ public final class DiceRoller {
         ArrayList<Integer> rollAbilityScoresList = new ArrayList<>();
 
         for (int i = 0; i < 6; i++) {
-            int topThreeSixSidedDie = topThreeSixSidedDie();
+            int topThreeSixSidedDie = rollForScore();
             rollAbilityScoresList.add(topThreeSixSidedDie);
         }
 
@@ -30,7 +30,12 @@ public final class DiceRoller {
         return random.nextInt(20) + 1;
     }
 
-    public static int topThreeSixSidedDie() {
+    /**
+     * This method adds four randomized values from the roll6 method to a list.
+     * It then sorts them from highest to lowest and removes the lowest value.
+     * @return the sum of the three highest values from roll6.
+     */
+    private static int rollForScore() {
         ArrayList<Integer> diceRollValues = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             diceRollValues.add(roll6());
