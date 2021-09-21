@@ -2,6 +2,7 @@ package scenarios.crewcreation;
 
 import crew.Captain;
 import system.gameplay.engine.io.DataPrinter;
+import system.gameplay.engine.io.PlayerInputPrompter;
 import system.gameplay.engine.io.SystemInputScannerSingleton;
 import system.gameplay.roleplay.DiceRoller;
 
@@ -10,6 +11,7 @@ import java.util.*;
 public final class CharacterCreation {
 
     private static final Scanner scanner = SystemInputScannerSingleton.getInstance();
+    private static final PlayerInputPrompter playerInputPrompter = PlayerInputPrompter.getInstance();
 
     // TODO: Move these constants to an enum
     private static final String PHYSICAL = "Physical";
@@ -102,15 +104,14 @@ public final class CharacterCreation {
             }
 
             DataPrinter.printStringIntMap(abilityScoreMap);
-            System.out.println("Are these the ability scores you wish to use? (yes/no)");
-            String answer = scanner.nextLine();
+
             // TODO: (J) Potential yes/no utility method after implementing Lanterna
-            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+            boolean scoresConfirmed =
+                    playerInputPrompter.promptYesOrNo("Are these the ability scores you wish to use?");
+            if (scoresConfirmed) {
                 break;
-            } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
+            } else if (scoresConfirmed == false) {
                 System.out.println("Let's try that again then. From the top.");
-            } else {
-                System.out.println("Please answer with (yes/no).");
             }
         }
         return abilityScoreMap;

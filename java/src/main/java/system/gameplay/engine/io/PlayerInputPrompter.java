@@ -21,4 +21,18 @@ public final class PlayerInputPrompter {
         }
         return INSTANCE;
     }
+
+    public boolean promptYesOrNo (String prompt) {
+        while (true) {
+            System.out.println(prompt + " (yes/no)");
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+                return true;
+            } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
+                return false;
+            } else {
+                System.out.println("Please answer with (yes/no).");
+            }
+        }
+    }
 }
