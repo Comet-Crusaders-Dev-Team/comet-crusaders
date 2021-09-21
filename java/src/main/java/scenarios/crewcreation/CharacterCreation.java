@@ -94,34 +94,17 @@ public final class CharacterCreation {
                 System.out.println("Which score would you like to assign to your [" + abilityName + "] ability?");
                 System.out.println("Enter the number corresponding to the value you wish to use...");
 
-                // TODO: Depending on how Lanterna is set up, we should potentially extract the following code into a
-                //  utility method for players to select a choice from an ordered list
-                DataPrinter.printAsOrderedList(availableScores);
+                int selectedScoreIndex = selectScore(availableScores);
 
-                Integer selectedScore = null;
-                while (selectedScore == null) {
-                    String invalidInputMessage = "Please enter a number from 1 to " + availableScores.size() + ".";
-
-                    try {
-                        selectedScore = Integer.parseInt(scanner.nextLine());
-                    } catch (NumberFormatException e) {
-                        System.out.println(invalidInputMessage);
-                        continue;
-                    }
-                    if (selectedScore < 1 || selectedScore > availableScores.size()) {
-                        System.out.println(invalidInputMessage);
-                        selectedScore = null;
-                    }
-                }
-
-                printAbilityScoreFlavorText(availableScores.get(selectedScore - 1), abilityName);
-                ability.setValue(availableScores.get(selectedScore - 1));
-                availableScores.remove(selectedScore - 1);
+                printAbilityScoreFlavorText(availableScores.get(selectedScoreIndex), abilityName);
+                ability.setValue(availableScores.get(selectedScoreIndex));
+                availableScores.remove(selectedScoreIndex);
             }
 
-            printAbilityScoresWithNames(abilityScoreMap);
+            DataPrinter.printStringIntMap(abilityScoreMap);
             System.out.println("Are these the ability scores you wish to use? (yes/no)");
             String answer = scanner.nextLine();
+            // TODO: (J) Potential yes/no utility method after implementing Lanterna
             if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
                 break;
             } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
@@ -229,10 +212,27 @@ public final class CharacterCreation {
         System.out.println();
     }
 
-    public static void printAbilityScoresWithNames(Map<String, Integer> scores) {
-        for (Map.Entry<String, Integer> entry : scores.entrySet()) {
-            System.out.println("[" + entry.getKey() + "]: " + entry.getValue());
+    private static int selectScore (List<Integer> availableScores) {
+        // TODO: Depending on how Lanterna is set up, we should potentially extract the following code into a
+        //  utility method for players to select a choice from an ordered list
+        DataPrinter.printAsOrderedList(availableScores);
+
+        Integer selectedScore = null;
+        while (selectedScore == null) {
+            String invalidInputMessage = "Please enter a number from 1 to " + availableScores.size() + ".";
+
+            try {
+                selectedScore = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println(invalidInputMessage);
+                continue;
+            }
+            if (selectedScore < 1 || selectedScore > availableScores.size()) {
+                System.out.println(invalidInputMessage);
+                selectedScore = null;
+            }
         }
+        return selectedScore - 1;
     }
 
     private CharacterCreation() {}

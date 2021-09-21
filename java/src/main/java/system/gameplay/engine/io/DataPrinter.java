@@ -2,6 +2,7 @@ package system.gameplay.engine.io;
 
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Utility class that provides easily-readable methods to handle common printing functionality.
@@ -20,6 +21,16 @@ public final class DataPrinter {
     public static void printAsOrderedList(List<?> list) {
         for (int i = 0; i < list.size(); i++) {
             System.out.println("[" + (i + 1) + "]:" + " " + list.get(i));
+        }
+    }
+
+    /**
+     * Use to print the ability score names as String variables which are assigned an Integer score
+     * @param map
+     */
+    public static void printStringIntMap(Map<String, Integer> map) {
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            System.out.println("[" + entry.getKey() + "]: " + entry.getValue());
         }
     }
 
