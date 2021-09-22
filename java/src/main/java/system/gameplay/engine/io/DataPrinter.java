@@ -25,7 +25,7 @@ public final class DataPrinter {
     }
 
     /**
-     * Use to print the ability score names as String variables which are assigned an Integer score
+     * Use to print a map of Integers with String keys
      * @param map
      */
     public static void printStringIntMap(Map<String, Integer> map) {

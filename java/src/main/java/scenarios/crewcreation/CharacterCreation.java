@@ -36,10 +36,25 @@ public final class CharacterCreation {
 
         List<Integer> unassignedAbilityScores = DiceRoller.rollAbilityScores();
 
-        int meanScore = (int) unassignedAbilityScores.stream().mapToInt(i -> i).average().orElse(0);
+        printMeanScoreFlavorText((int) unassignedAbilityScores.stream().mapToInt(i -> i).average().orElse(0));
 
         System.out.println("Looks like these are your ability scores: " + unassignedAbilityScores);
 
+
+        Map<String, Integer> assignedAbilityScores = assignAbilityScores(unassignedAbilityScores);
+
+        return new Captain(
+                name,
+                assignedAbilityScores.get(PHYSICAL),
+                assignedAbilityScores.get(AGILITY),
+                assignedAbilityScores.get(BLASTER),
+                assignedAbilityScores.get(PILOTING),
+                assignedAbilityScores.get(REPAIR),
+                assignedAbilityScores.get(CHARISMA)
+        );
+    }
+
+    private static void printMeanScoreFlavorText (int meanScore) {
         if (meanScore == 18) {
             System.out.println("What?!?!?");
             System.out.println("There's no way...");
@@ -60,19 +75,6 @@ public final class CharacterCreation {
             System.out.println("Just so you know, there's no shame in restarting the game.");
             System.out.println("I probably would, if I were you...");
         }
-
-
-        Map<String, Integer> assignedAbilityScores = assignAbilityScores(unassignedAbilityScores);
-
-        return new Captain(
-                name,
-                assignedAbilityScores.get(PHYSICAL),
-                assignedAbilityScores.get(AGILITY),
-                assignedAbilityScores.get(BLASTER),
-                assignedAbilityScores.get(PILOTING),
-                assignedAbilityScores.get(REPAIR),
-                assignedAbilityScores.get(CHARISMA)
-        );
     }
 
     private static Map<String, Integer> assignAbilityScores(List<Integer> scoresRolled) {
