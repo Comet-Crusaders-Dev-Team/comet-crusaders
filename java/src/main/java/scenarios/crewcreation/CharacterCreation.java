@@ -113,7 +113,7 @@ public final class CharacterCreation {
                     playerInputPrompter.promptYesOrNo("Are these the ability scores you wish to use?");
             if (scoresConfirmed) {
                 break;
-            } else if (scoresConfirmed == false) {
+            } else {
                 System.out.println("Let's try that again then. From the top.");
             }
         }
