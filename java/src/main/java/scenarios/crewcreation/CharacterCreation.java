@@ -22,6 +22,7 @@ public final class CharacterCreation {
     private static final String CHARISMA = "Charisma";
 
     public static Captain runCharacterCreation() {
+        // TODO: Decide character limit after implementing Lanterna
         System.out.println("First things first, what is your name...?");
         String name = scanner.nextLine();
 
@@ -119,100 +120,134 @@ public final class CharacterCreation {
         return abilityScoreMap;
     }
 
-    public static void printAbilityScoreFlavorText(int abilityScoreValue, String abilityScoreName) {
+    private static void printAbilityScoreFlavorText(int abilityScoreValue, String abilityName) {
         System.out.println();
-        if (abilityScoreName.equals(PHYSICAL)) {
-            if (abilityScoreValue == 18) {
-                // TODO: change bears to alien species once world is more fleshed out
-                System.out.println("Holy smokes! You must wrestle with bears for fun!");
-            } else if (abilityScoreValue >= 14) {
-                System.out.println("With numbers like that, I might be willing to train with you sometime.");
-            } else if (abilityScoreValue >= 10) {
-                System.out.println(
-                        "You look like you may have seen the inside of a metagalactic economy training gym or two."
-                );
-            } else if (abilityScoreValue == 9) {
-                System.out.println("Perfectly average physical capabilities.");
-            } else if (abilityScoreValue >= 7) {
-                System.out.println("Hit some mass-affected apparatuses, nerd.");
-            } else if (abilityScoreValue >= 3) {
-                System.out.println("Have you ever even been outside? Good luck...");
-            }
-        } else if (abilityScoreName.equals(AGILITY)) {
-            if (abilityScoreValue == 18) {
-                // TODO: change cobra to alien species once world is more fleshed out
-                System.out.println("Whoa there! You must go bobbing for cobras instead of apples!");
-            } else if (abilityScoreValue >= 14) {
-                System.out.println("You've got some slick moves there!");
-            } else if (abilityScoreValue >= 10) {
-                System.out.println("You look like a bit of a dancer.");
-            } else if (abilityScoreValue == 9) {
-                System.out.println("Perfectly average agility-wise. Hmph.");
-            } else if (abilityScoreValue >= 7) {
-                System.out.println("You look sluggish... Are you okay?");
-            } else if (abilityScoreValue >= 3) {
-                System.out.println("Watching you move is like hoping a brick will run...");
-            }
-        } else if (abilityScoreName.equals(BLASTER)) {
-            if (abilityScoreValue == 18) {
-                System.out.println("Yee haw! You could shoot my eyebrow off with those moves!");
-            } else if (abilityScoreValue >= 14) {
-                System.out.println("You use a blaster like it's a high range sniper pulse rifle!");
-            } else if (abilityScoreValue >= 10) {
-                System.out.println("You must hit the holo-range often.");
-            } else if (abilityScoreValue == 9) {
-                System.out.println("As average with a blaster as can be.");
-            } else if (abilityScoreValue >= 7) {
-                System.out.println("Keep your finger OUTSIDE of the holo-finger guard...");
-            } else if (abilityScoreValue >= 3) {
-                System.out.println("I think you're gonna need a lot more than adult supervision around a blaster, son.");
-            }
-        } else if (abilityScoreName.equals(PILOTING)) {
-            if (abilityScoreValue == 18) {
-                System.out.println("Wowee! You could fit a strike ship through a garbage chute!");
-            } else if (abilityScoreValue >= 14) {
-                System.out.println("We should go for a race sometime, you've got some fancy tricks.");
-            } else if (abilityScoreValue >= 10) {
-                System.out.println("You could handle low-orbit well. Try it out sometime.");
-            } else if (abilityScoreValue == 9) {
-                System.out.println("Fairly average, but at least you can pilot a ship.");
-            } else if (abilityScoreValue >= 7) {
-                System.out.println("I've seen worse.");
-            } else if (abilityScoreValue >= 3) {
-                System.out.println("You had your hyperdrive license suspended for how long?!");
-            }
-        } else if (abilityScoreName.equals(REPAIR)) {
-            if (abilityScoreValue == 18) {
-                System.out.println("Golly! You could fix things before they even break!");
-            } else if (abilityScoreValue >= 14) {
-                System.out.println("Impressive... Now listen, I've got this sound coming from my kinetic barriers..");
-            } else if (abilityScoreValue >= 10) {
-                System.out.println("Spent a summer working in the engineering bay of a Cruiser, eh?");
-            } else if (abilityScoreValue == 9) {
-                System.out.println("At least I can trust you not to mess things up.");
-            } else if (abilityScoreValue >= 7) {
-                System.out.println("Guess you skipped that module at the Academy.");
-            } else if (abilityScoreValue >= 3) {
-                System.out.println("Give that wrench back right now.");
-            }
-        } else if (abilityScoreName.equals(CHARISMA)) {
-            if (abilityScoreValue == 18) {
-                System.out.println("Wowzers! You could charm the pants off of me!");
-            } else if (abilityScoreValue >= 14) {
-                System.out.println("You must have no trouble getting into those selective Nebular clubs.");
-            } else if (abilityScoreValue >= 10) {
-                System.out.println("Had more than a few ladies hoping you'd take 'em for a night-time cruise, eh?");
-            } else if (abilityScoreValue == 9) {
-                System.out.println("Average, but it's better than some can say.");
-            } else if (abilityScoreValue >= 7) {
-                System.out.println("You're not convincing anyone.");
-            } else if (abilityScoreValue >= 3) {
-                System.out.println(
-                        "I probably wouldn't even notice you exist, if I weren't being payed to talk to you..."
-                );
-            }
+        switch (abilityName) {
+            case "Physical":
+                printFlavorPhysicalTextScore(abilityScoreValue);
+                break;
+            case "Agility":
+                printFlavorAgilityTextScore(abilityScoreValue);
+                break;
+            case "Blaster":
+                printFlavorBlasterTextScore(abilityScoreValue);
+                break;
+            case "Piloting":
+                printFlavorPilotingTextScore(abilityScoreValue);
+                break;
+            case "Repair":
+                printFlavorRepairTextScore(abilityScoreValue);
+                break;
+            case "Charisma":
+                printFlavorCharismaTextScore(abilityScoreValue);
+                break;
+            default:
+                System.out.println("How did you get here?");
+                break;
         }
         System.out.println();
+    }
+
+    private static void printFlavorPhysicalTextScore (int abilityScoreValue){
+        if (abilityScoreValue == 18) {
+            // TODO: change bears to alien species once world is more fleshed out
+            System.out.println("Holy smokes! You must wrestle with bears for fun!");
+        } else if (abilityScoreValue >= 14) {
+            System.out.println("With numbers like that, I might be willing to train with you sometime.");
+        } else if (abilityScoreValue >= 10) {
+            System.out.println(
+                    "You look like you may have seen the inside of a metagalactic economy training gym or two."
+            );
+        } else if (abilityScoreValue == 9) {
+            System.out.println("Perfectly average physical capabilities.");
+        } else if (abilityScoreValue >= 7) {
+            System.out.println("Hit some mass-affected apparatuses, nerd.");
+        } else if (abilityScoreValue >= 3) {
+            System.out.println("Have you ever even been outside? Good luck...");
+        }
+    }
+
+    private static void printFlavorAgilityTextScore (int abilityScoreValue){
+        if (abilityScoreValue == 18) {
+            // TODO: change cobra to alien species once world is more fleshed out
+            System.out.println("Whoa there! You must go bobbing for cobras instead of apples!");
+        } else if (abilityScoreValue >= 14) {
+            System.out.println("You've got some slick moves there!");
+        } else if (abilityScoreValue >= 10) {
+            System.out.println("You look like a bit of a dancer.");
+        } else if (abilityScoreValue == 9) {
+            System.out.println("Perfectly average agility-wise. Hmph.");
+        } else if (abilityScoreValue >= 7) {
+            System.out.println("You look sluggish... Are you okay?");
+        } else if (abilityScoreValue >= 3) {
+            System.out.println("Watching you move is like hoping a brick will run...");
+        }
+    }
+
+    private static void printFlavorBlasterTextScore (int abilityScoreValue){
+        if (abilityScoreValue == 18) {
+            System.out.println("Yee haw! You could shoot my eyebrow off with those moves!");
+        } else if (abilityScoreValue >= 14) {
+            System.out.println("You use a blaster like it's a high range sniper pulse rifle!");
+        } else if (abilityScoreValue >= 10) {
+            System.out.println("You must hit the holo-range often.");
+        } else if (abilityScoreValue == 9) {
+            System.out.println("As average with a blaster as can be.");
+        } else if (abilityScoreValue >= 7) {
+            System.out.println("Keep your finger OUTSIDE of the holo-finger guard...");
+        } else if (abilityScoreValue >= 3) {
+            System.out.println("I think you're gonna need a lot more than adult supervision around a blaster, son.");
+        }
+    }
+
+    private static void printFlavorPilotingTextScore (int abilityScoreValue){
+        if (abilityScoreValue == 18) {
+            System.out.println("Wowee! You could fit a strike ship through a garbage chute!");
+        } else if (abilityScoreValue >= 14) {
+            System.out.println("We should go for a race sometime, you've got some fancy tricks.");
+        } else if (abilityScoreValue >= 10) {
+            System.out.println("You could handle low-orbit well. Try it out sometime.");
+        } else if (abilityScoreValue == 9) {
+            System.out.println("Fairly average, but at least you can pilot a ship.");
+        } else if (abilityScoreValue >= 7) {
+            System.out.println("I've seen worse.");
+        } else if (abilityScoreValue >= 3) {
+            System.out.println("You had your hyperdrive license suspended for how long?!");
+        }
+    }
+
+    private static void printFlavorRepairTextScore (int abilityScoreValue){
+        if (abilityScoreValue == 18) {
+            System.out.println("Golly! You could fix things before they even break!");
+        } else if (abilityScoreValue >= 14) {
+            System.out.println("Impressive... Now listen, I've got this sound coming from my kinetic barriers..");
+        } else if (abilityScoreValue >= 10) {
+            System.out.println("Spent a summer working in the engineering bay of a Cruiser, eh?");
+        } else if (abilityScoreValue == 9) {
+            System.out.println("At least I can trust you not to mess things up.");
+        } else if (abilityScoreValue >= 7) {
+            System.out.println("Guess you skipped that module at the Academy.");
+        } else if (abilityScoreValue >= 3) {
+            System.out.println("Give that wrench back right now.");
+        }
+    }
+
+    private static void printFlavorCharismaTextScore (int abilityScoreValue){
+        if (abilityScoreValue == 18) {
+            System.out.println("Wowzers! You could charm the pants off of me!");
+        } else if (abilityScoreValue >= 14) {
+            System.out.println("You must have no trouble getting into those selective Nebular clubs.");
+        } else if (abilityScoreValue >= 10) {
+            System.out.println("Had more than a few ladies hoping you'd take 'em for a night-time cruise, eh?");
+        } else if (abilityScoreValue == 9) {
+            System.out.println("Average, but it's better than some can say.");
+        } else if (abilityScoreValue >= 7) {
+            System.out.println("You're not convincing anyone.");
+        } else if (abilityScoreValue >= 3) {
+            System.out.println(
+                    "I probably wouldn't even notice you exist, if I weren't being payed to talk to you..."
+            );
+        }
     }
 
     private static int selectScore (List<Integer> availableScores) {
@@ -236,6 +271,7 @@ public final class CharacterCreation {
             }
         }
         return selectedScore - 1;
+        // Subtracting 1 to match selection to desired index for the selected value
     }
 
     private CharacterCreation() {}
