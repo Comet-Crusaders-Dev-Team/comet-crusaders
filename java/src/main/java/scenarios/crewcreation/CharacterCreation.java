@@ -32,14 +32,16 @@ public final class CharacterCreation {
 
         // TODO: Add a bit of flavor text describing each ability score, move into seperate describeAbilityScores method
         System.out.println("Anywho, Ability Scores are what really show what someone's made of!");
-
-
+        System.out.println();
+        System.out.println("Well then, what might your ability scores be?");
+        System.out.println("Press any key to roll the dice and determine your potential attributes...");
+        scanner.nextLine();
 
         List<Integer> unassignedAbilityScores = DiceRoller.rollAbilityScores();
 
-        printMeanScoreFlavorText((int) unassignedAbilityScores.stream().mapToInt(i -> i).average().orElse(0));
-
         System.out.println("Looks like these are your ability scores: " + unassignedAbilityScores);
+
+        printMeanScoreFlavorText((int) unassignedAbilityScores.stream().mapToInt(i -> i).average().orElse(0));
 
 
         Map<String, Integer> assignedAbilityScores = assignAbilityScores(unassignedAbilityScores);
@@ -81,9 +83,7 @@ public final class CharacterCreation {
     private static Map<String, Integer> assignAbilityScores(List<Integer> scoresRolled) {
         Map<String, Integer> abilityScoreMap = new LinkedHashMap<>();
 
-        System.out.println("Well then, what might your ability scores be?");
-        System.out.println("Press any key to roll the dice and determine your potential attributes...");
-        scanner.nextLine();
+
         while (true) {
             abilityScoreMap.put(PHYSICAL, null);
             abilityScoreMap.put(AGILITY, null);
@@ -123,23 +123,23 @@ public final class CharacterCreation {
     private static void printAbilityScoreFlavorText(int abilityScoreValue, String abilityName) {
         System.out.println();
         switch (abilityName) {
-            case "Physical":
-                printFlavorPhysicalTextScore(abilityScoreValue);
+            case PHYSICAL:
+                printPhysicalScoreFlavorText(abilityScoreValue);
                 break;
-            case "Agility":
-                printFlavorAgilityTextScore(abilityScoreValue);
+            case AGILITY:
+                printAgilityScoreFlavorText(abilityScoreValue);
                 break;
-            case "Blaster":
-                printFlavorBlasterTextScore(abilityScoreValue);
+            case BLASTER:
+                printBlasterScoreFlavorText(abilityScoreValue);
                 break;
-            case "Piloting":
-                printFlavorPilotingTextScore(abilityScoreValue);
+            case PILOTING:
+                printPilotingScoreFlavorText(abilityScoreValue);
                 break;
-            case "Repair":
-                printFlavorRepairTextScore(abilityScoreValue);
+            case REPAIR:
+                printRepairScoreFlavorText(abilityScoreValue);
                 break;
-            case "Charisma":
-                printFlavorCharismaTextScore(abilityScoreValue);
+            case CHARISMA:
+                printCharismaScoreFlavorText(abilityScoreValue);
                 break;
             default:
                 System.out.println("How did you get here?");
@@ -148,7 +148,7 @@ public final class CharacterCreation {
         System.out.println();
     }
 
-    private static void printFlavorPhysicalTextScore (int abilityScoreValue){
+    private static void printPhysicalScoreFlavorText (int abilityScoreValue) {
         if (abilityScoreValue == 18) {
             // TODO: change bears to alien species once world is more fleshed out
             System.out.println("Holy smokes! You must wrestle with bears for fun!");
@@ -167,7 +167,7 @@ public final class CharacterCreation {
         }
     }
 
-    private static void printFlavorAgilityTextScore (int abilityScoreValue){
+    private static void printAgilityScoreFlavorText (int abilityScoreValue) {
         if (abilityScoreValue == 18) {
             // TODO: change cobra to alien species once world is more fleshed out
             System.out.println("Whoa there! You must go bobbing for cobras instead of apples!");
@@ -184,7 +184,7 @@ public final class CharacterCreation {
         }
     }
 
-    private static void printFlavorBlasterTextScore (int abilityScoreValue){
+    private static void printBlasterScoreFlavorText (int abilityScoreValue) {
         if (abilityScoreValue == 18) {
             System.out.println("Yee haw! You could shoot my eyebrow off with those moves!");
         } else if (abilityScoreValue >= 14) {
@@ -200,7 +200,7 @@ public final class CharacterCreation {
         }
     }
 
-    private static void printFlavorPilotingTextScore (int abilityScoreValue){
+    private static void printPilotingScoreFlavorText (int abilityScoreValue) {
         if (abilityScoreValue == 18) {
             System.out.println("Wowee! You could fit a strike ship through a garbage chute!");
         } else if (abilityScoreValue >= 14) {
@@ -216,7 +216,7 @@ public final class CharacterCreation {
         }
     }
 
-    private static void printFlavorRepairTextScore (int abilityScoreValue){
+    private static void printRepairScoreFlavorText (int abilityScoreValue) {
         if (abilityScoreValue == 18) {
             System.out.println("Golly! You could fix things before they even break!");
         } else if (abilityScoreValue >= 14) {
@@ -232,7 +232,7 @@ public final class CharacterCreation {
         }
     }
 
-    private static void printFlavorCharismaTextScore (int abilityScoreValue){
+    private static void printCharismaScoreFlavorText (int abilityScoreValue) {
         if (abilityScoreValue == 18) {
             System.out.println("Wowzers! You could charm the pants off of me!");
         } else if (abilityScoreValue >= 14) {
@@ -270,8 +270,8 @@ public final class CharacterCreation {
                 selectedScore = null;
             }
         }
-        return selectedScore - 1;
         // Subtracting 1 to match selection to desired index for the selected value
+        return selectedScore - 1;
     }
 
     private CharacterCreation() {}
