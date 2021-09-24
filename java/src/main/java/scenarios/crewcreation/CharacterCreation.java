@@ -30,7 +30,7 @@ public final class CharacterCreation {
                 name + ", eh? Not the name I was expecting for a star ship captain, if I'm being honest with you..."
         );
 
-        // TODO: Add a bit of flavor text describing each ability score, move into seperate describeAbilityScores method
+        // TODO: Add a bit of flavor text describing each ability score, move into separate describeAbilityScores method
         System.out.println("Anywho, Ability Scores are what really show what someone's made of!");
         System.out.println();
         System.out.println("Well then, what might your ability scores be?");
