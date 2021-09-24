@@ -15,18 +15,13 @@ import java.util.List;
  */
 public class DiceRollerTest {
 
-    private DiceRoller diceRoller;
-
-    @Before
-    public void setUp() {
-        diceRoller = new DiceRoller();
-    }
-
     @Test
     public void rollAbilityScoresReturnsAllValidAbilityScores() {
         List<Integer> valuesReturned = new ArrayList<>();
-        while (valuesReturned.size() < 16) {
-            List<Integer> abilityScoresRolled = diceRoller.rollAbilityScores();
+        int tries = 0; // Fail-safe to keep test from looping infinitely
+        while (valuesReturned.size() < 16 || tries < 250) {
+            tries++;
+            List<Integer> abilityScoresRolled = DiceRoller.rollAbilityScores();
             assertThat(abilityScoresRolled.size()).isEqualTo(6);
 
             for (Integer valueRolled : abilityScoresRolled) {
@@ -46,8 +41,10 @@ public class DiceRollerTest {
     public void roll20ReturnsAllIntegersInRange() {
         List<Integer> valuesReturned = new ArrayList<>();
 
-        while (valuesReturned.size() < 20) {
-            int valueRolled = diceRoller.roll20();
+        int tries = 0;
+        while (valuesReturned.size() < 20 || tries < 250) {
+            tries++;
+            int valueRolled = DiceRoller.roll20();
             assertThat(valueRolled).isBetween(1, 20);
 
             if (!valuesReturned.contains(valueRolled)) {
@@ -57,5 +54,24 @@ public class DiceRollerTest {
 
         assertThat(valuesReturned)
                 .containsExactlyInAnyOrder(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+    }
+
+    @Test
+    public void roll6ReturnsAllIntegersInRange() {
+        List<Integer> valuesReturned = new ArrayList<>();
+
+        int tries = 0;
+        while (valuesReturned.size() < 6 || tries < 250) {
+            tries++;
+            int valueRolled = DiceRoller.roll6();
+            assertThat(valueRolled).isBetween(1, 6);
+
+            if (!valuesReturned.contains(valueRolled)) {
+                valuesReturned.add(valueRolled);
+            }
+        }
+
+        assertThat(valuesReturned)
+                .containsExactlyInAnyOrder(1, 2, 3, 4, 5, 6);
     }
 }

@@ -2,3 +2,8 @@
 /java/.gradle/
 /java/gradle/
 /.idea/sonarlint/
+/java/gradlew
+/java/gradlew.bat
+/.idea/runConfigurations.xml
+/.idea/gradle.xml
+.DS_Store

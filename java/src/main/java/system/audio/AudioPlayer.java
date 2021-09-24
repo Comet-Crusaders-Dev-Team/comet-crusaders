@@ -4,7 +4,7 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class AudioHelper {
+public final class AudioPlayer {
 
     /**
      * Loops an audio file (in .wav, .mid, or .au format) in a background thread.
@@ -16,7 +16,7 @@ public class AudioHelper {
         if (pathToFileFromResources == null) throw new IllegalArgumentException();
         try {
             Clip clip = AudioSystem.getClip();
-            InputStream inputStream = AudioHelper.class.getResourceAsStream(pathToFileFromResources);
+            InputStream inputStream = AudioPlayer.class.getResourceAsStream(pathToFileFromResources);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(inputStream);
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
@@ -29,4 +29,5 @@ public class AudioHelper {
         }
     }
 
+    private AudioPlayer() {}
 }
