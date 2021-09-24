@@ -18,7 +18,7 @@ public class DiceRollerTest {
     @Test
     public void rollAbilityScoresReturnsAllValidAbilityScores() {
         List<Integer> valuesReturned = new ArrayList<>();
-        int tries = 0;
+        int tries = 0; // Fail-safe to keep test from looping infinitely
         while (valuesReturned.size() < 16 || tries < 250) {
             tries++;
             List<Integer> abilityScoresRolled = DiceRoller.rollAbilityScores();
@@ -54,5 +54,24 @@ public class DiceRollerTest {
 
         assertThat(valuesReturned)
                 .containsExactlyInAnyOrder(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+    }
+
+    @Test
+    public void roll6ReturnsAllIntegersInRange() {
+        List<Integer> valuesReturned = new ArrayList<>();
+
+        int tries = 0;
+        while (valuesReturned.size() < 6 || tries < 250) {
+            tries++;
+            int valueRolled = DiceRoller.roll6();
+            assertThat(valueRolled).isBetween(1, 6);
+
+            if (!valuesReturned.contains(valueRolled)) {
+                valuesReturned.add(valueRolled);
+            }
+        }
+
+        assertThat(valuesReturned)
+                .containsExactlyInAnyOrder(1, 2, 3, 4, 5, 6);
     }
 }
