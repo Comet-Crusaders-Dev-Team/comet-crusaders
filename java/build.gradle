@@ -12,7 +12,11 @@ repositories {
 }
 
 dependencies {
-    //Unit Tests
+
+    // GUI
+    implementation 'com.googlecode.lanterna:lanterna:3.1.1'
+
+    // Unit Tests
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:3.6.28'
     testImplementation 'org.assertj:assertj-core:3.18.1'
