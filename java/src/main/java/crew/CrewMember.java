@@ -4,7 +4,7 @@ public abstract class CrewMember {
 
     private final String name;
     private int level;
-    // private Health health;
+    private crew.Health health;
     private int physical;
     private int agility;
     private int blaster;
@@ -18,6 +18,7 @@ public abstract class CrewMember {
 
     protected CrewMember(
             String name,
+            Health health,
             int level,
             int physical,
             int agility,
@@ -27,6 +28,7 @@ public abstract class CrewMember {
             int charisma
     ) {
         this.name = name;
+        this.health = health;
         this.level = level;
         this.physical = physical;
         this.agility = agility;
@@ -67,6 +69,8 @@ public abstract class CrewMember {
     public int getCharisma() {
         return charisma;
     }
+
+    public Health getHealth() { return health; }
 
     // TODO: method to run level up
 }
