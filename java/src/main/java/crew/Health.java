@@ -17,11 +17,11 @@ public class Health {
         }
     }
 
-    public void heal(int healing) {
-        if ((currentHealth + healing) >= maxHealth) {
+    public void heal(int amountHealed) {
+        if ((currentHealth + amountHealed) >= maxHealth) {
             currentHealth = maxHealth;
         } else {
-            currentHealth+= healing;
+            currentHealth+= amountHealed;
         }
     }
 
