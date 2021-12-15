@@ -4,7 +4,7 @@ public abstract class CrewMember {
 
     private final String name;
     private int level;
-    private crew.Health health;
+    private Health health;
     private int physical;
     private int agility;
     private int blaster;
