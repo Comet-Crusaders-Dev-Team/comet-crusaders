@@ -1,7 +1,7 @@
 package crew;
 
 public class Health {
-
+  
     protected static final int MIN_CURRENT_HEALTH = 0;
     protected static final int MIN_MAX_HEALTH = 1;
 
